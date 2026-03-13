@@ -46,7 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                throw new Error('API呼び出しに失敗しました');
+                const errorData = await response.json().catch(() => ({}));
+                const detail = errorData.error || response.statusText;
+                throw new Error(`API呼び出しに失敗しました (${response.status} ${detail})`);
             }
 
             const data = await response.json();
