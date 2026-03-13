@@ -147,6 +147,10 @@ header p {
     padding-bottom: 25px; /* Space for the tag below */
 }
 
+.alima-status-tag.hidden {
+    display: none !important;
+}
+
 .alima-status-tag {
     position: absolute;
     bottom: 0;
