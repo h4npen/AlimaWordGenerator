@@ -189,15 +189,6 @@ header p {
     box-shadow: 6px 6px 0 var(--border-color);
     flex-shrink: 0;
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
-}
-
-.alima-avatar:hover {
-    transform: scale(1.05);
-}
-
-.alima-avatar:active {
-    transform: scale(0.95);
 }
 
 /* Animations for Avatar */
@@ -217,6 +208,10 @@ header p {
 @keyframes alima-jump {
     from { transform: translateY(0); }
     to { transform: translateY(-15px); }
+}
+
+.speech-bubble.hidden {
+    display: none !important;
 }
 
 .speech-bubble {

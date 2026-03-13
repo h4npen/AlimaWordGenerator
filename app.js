@@ -82,17 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // アバタータップでのイースターエッグ
-    alimaAvatar.addEventListener('click', () => {
-        statusTag.textContent = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
-        statusTag.classList.remove('hidden');
-        
-        // ぴょこっと動かす
-        alimaAvatar.classList.remove('is-speaking');
-        void alimaAvatar.offsetWidth;
-        alimaAvatar.classList.add('is-speaking');
-        setTimeout(() => alimaAvatar.classList.remove('is-speaking'), 500);
-    });
+    // アバタータップでのイースターエッグは「略す！」への誘導のため削除
+
 
     async function doGenerate() {
         const text = inputEl.value.trim();
