@@ -60,7 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (error.message && (error.message.includes('429') || error.message.includes('Quota'))) {
                 return "考えすぎて疲れてねむねむにゃんこだにゃん。\n今は頭がいっぱいになっちゃったから、1分くらい待っててほしいにゃん！";
             }
-            return "通信エラー";
+            // その他のエラー
+            return "考えすぎて疲れてねむねむにゃんこだにゃん。\nもうちょっとしてから依頼してくれにゃん。";
         }
     }
 
