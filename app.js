@@ -125,6 +125,14 @@ document.addEventListener('DOMContentLoaded', () => {
         statusTag.textContent = activeStatuses[Math.floor(Math.random() * activeStatuses.length)];
         statusTag.classList.remove('hidden');
 
+        // 5秒後（クリックから起算）にヒントを表示
+        hintTimer = setTimeout(() => {
+            statusTag.classList.add('hidden');
+            void statusTag.offsetWidth;
+            statusTag.textContent = hintStatuses[Math.floor(Math.random() * hintStatuses.length)];
+            statusTag.classList.remove('hidden');
+        }, 5000);
+
         // イースターエッグのチェック（AIに聞く前にチェック）
         let specialResponse = "";
         for (const key in keywordEggs) {
@@ -169,14 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
         generateBtn.style.opacity = '1';
         generateBtn.style.cursor = 'pointer';
         
-        // 10秒後にヒントを表示
-        hintTimer = setTimeout(() => {
-            statusTag.classList.add('hidden');
-            void statusTag.offsetWidth;
-            statusTag.textContent = hintStatuses[Math.floor(Math.random() * hintStatuses.length)];
-            statusTag.classList.remove('hidden');
-        }, 3000);
-
         // ポップアニメーション
         setTimeout(() => {
             speechBubble.classList.remove('pop-anim');
