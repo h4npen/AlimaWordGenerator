@@ -56,6 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('AIの生成に失敗:', error);
+            // エラー文に429やQuotaが含まれていた場合（制限超過）
+            if (error.message && (error.message.includes('429') || error.message.includes('Quota'))) {
+                return "考えすぎて疲れてねむねむにゃんこだにゃん。\n今は頭がいっぱいになっちゃったから、1分くらい待っててほしいにゃん！";
+            }
             return "通信エラー";
         }
     }
