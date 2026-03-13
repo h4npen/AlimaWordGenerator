@@ -6,9 +6,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const thinkingDots = document.getElementById('thinkingDots');
     const actionButtons = document.getElementById('actionButtons');
     const alimaAvatar = document.getElementById('alimaAvatar');
+    const statusTag = document.getElementById('alimaStatusTag');
     const resultWordEl = document.getElementById('resultWord');
     const tweetBtn = document.getElementById('tweetBtn');
     const copyBtn = document.getElementById('copyBtn');
+
+    const randomStatuses = [
+        "ヤニ休憩中🚬",
+        "ドカ食い気絶中🍖",
+        "慢性的な寝不足😪",
+        "エナドリ充填中⚡",
+        "命の前借り中💸",
+        "脳内会議中🧠"
+    ];
+
+    const keywordEggs = {
+        "タバコ": "ヤニ吸って落ち着けにゃん🚬",
+        "ヤニ": "ヤニ吸って落ち着けにゃん🚬",
+        "ドカ食い": "ドカ食い気絶部に入部するにゃん？🍖",
+        "二郎": "野菜マシマシ気絶丸だにゃん🍜",
+        "眠い": "一回寝るのが正解だにゃん...💤",
+        "寝不足": "一回寝るのが正解だにゃん...💤",
+        "エナドリ": "エナドリは命の前借りだにゃん！⚡",
+        "モンスター": "エナドリは命の前借りだにゃん！⚡",
+        "モンエナ": "エナドリは命の前借りだにゃん！⚡"
+    };
 
     // 凡例（ハードコードしてあるため完全一致で出力）
     const dictionary = {
@@ -73,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 吹き出しとアバターの状態を「考え中」にする
         chatArea.classList.remove('hidden');
         actionButtons.classList.add('hidden');
+        resultWordEl.textContent = ''; // 前の結果をクリア
         resultWordEl.classList.add('hidden');
         thinkingDots.classList.remove('hidden');
         speechBubble.classList.remove('is-error');
@@ -80,8 +103,21 @@ document.addEventListener('DOMContentLoaded', () => {
         alimaAvatar.classList.remove('is-speaking');
         alimaAvatar.classList.add('is-thinking');
 
+        // ステータスタグの表示（ランダム）
+        statusTag.textContent = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
+        statusTag.classList.remove('hidden');
+
+        // イースターエッグのチェック
+        let specialResponse = "";
+        for (const key in keywordEggs) {
+            if (text.includes(key)) {
+                specialResponse = keywordEggs[key];
+                break;
+            }
+        }
+
         // AIからの返答を待つ
-        let generatedWord = await generateAlimaWordAI(text);
+        let generatedWord = specialResponse || await generateAlimaWordAI(text);
         
         // ユーザー体験のため、最低でも1秒ほど確保する
         await new Promise(resolve => setTimeout(resolve, 800));

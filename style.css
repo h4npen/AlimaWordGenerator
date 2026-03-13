@@ -135,8 +135,28 @@ header p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 15px; /* Reduced to fit status tag */
     margin-bottom: 40px;
+}
+
+.alima-status-tag {
+    background-color: var(--accent-yellow);
+    color: var(--text-main);
+    border: 3px solid var(--border-color);
+    padding: 4px 12px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    box-shadow: 3px 3px 0 var(--border-color);
+    transform: rotate(-2deg);
+    margin-bottom: 5px;
+    z-index: 10;
+    white-space: nowrap;
+    animation: status-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes status-pop {
+    0% { transform: scale(0) rotate(0deg); }
+    100% { transform: scale(1) rotate(-2deg); }
 }
 
 .alima-chat-area.hidden {
