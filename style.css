@@ -178,7 +178,16 @@ header p {
     border: 4px solid var(--border-color);
     box-shadow: 6px 6px 0 var(--border-color);
     flex-shrink: 0;
-    transition: transform 0.3s;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.alima-avatar:hover {
+    transform: scale(1.05);
+}
+
+.alima-avatar:active {
+    transform: scale(0.95);
 }
 
 /* Animations for Avatar */

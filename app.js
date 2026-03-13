@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const randomStatuses = [
         "ヤニ休憩中🚬",
         "ドカ食い気絶中🍖",
-        "慢性的な寝不足😪",
+        "ねむねむにゃんこだにゃん",
         "エナドリ充填中⚡",
-        "命の前借り中💸",
-        "脳内会議中🧠"
+        "命の前借り中💸"
     ];
 
     const keywordEggs = {
+        "やばい": "やばくね～よ☆",
         "タバコ": "ヤニ吸って落ち着けにゃん🚬",
         "ヤニ": "ヤニ吸って落ち着けにゃん🚬",
         "ドカ食い": "ドカ食い気絶部に入部するにゃん？🍖",
@@ -83,6 +83,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // アバタータップでのイースターエッグ
+    alimaAvatar.addEventListener('click', () => {
+        statusTag.textContent = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
+        statusTag.classList.remove('hidden');
+        
+        // ぴょこっと動かす
+        alimaAvatar.classList.remove('is-speaking');
+        void alimaAvatar.offsetWidth;
+        alimaAvatar.classList.add('is-speaking');
+        setTimeout(() => alimaAvatar.classList.remove('is-speaking'), 500);
+    });
+
     async function doGenerate() {
         const text = inputEl.value;
         if (!text.trim()) return;
@@ -93,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         generateBtn.style.cursor = 'not-allowed';
 
         // 吹き出しとアバターの状態を「考え中」にする
+        speechBubble.classList.remove('hidden'); // 吹き出しを表示
         chatArea.classList.remove('hidden');
         actionButtons.classList.add('hidden');
         resultWordEl.textContent = ''; // 前の結果をクリア
