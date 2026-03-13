@@ -11,15 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const tweetBtn = document.getElementById('tweetBtn');
     const copyBtn = document.getElementById('copyBtn');
 
-    const randomStatuses = [
+    const activeStatuses = [
+        "ヤニ休憩中🚬",
+        "ドカ食い気絶中🍖",
+        "ねむねむにゃんこだにゃん",
+        "エナドリ充填中⚡"
+    ];
+
+    const hintStatuses = [
         "「ねむい」にゃあ",
         "やっぱり「モンエナ」にゃん",
         "「タバコ」吸いたいにゃん",
         "「やばい」って言うと...？",
-        "「ドカ食い」したいにゃん🍚",
-        "ヤニ休憩中🚬",
-        "ドカ食い気絶中🍖"
+        "「ドカ食い」したいにゃん🍚"
     ];
+
+    let hintTimer = null;
 
     const keywordEggs = {
         "やばい": "やばくね～よ☆",
@@ -111,10 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
         alimaAvatar.classList.remove('is-speaking');
         alimaAvatar.classList.add('is-thinking');
 
-        // ステータスタグの表示（ランダム）
-        statusTag.classList.add('hidden'); // 一旦隠してアニメーションをリセット
-        void statusTag.offsetWidth; // 強制リフロー
-        statusTag.textContent = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
+        // ステータスタグの表示（通常ステータス）
+        clearTimeout(hintTimer);
+        statusTag.classList.add('hidden');
+        void statusTag.offsetWidth;
+        statusTag.textContent = activeStatuses[Math.floor(Math.random() * activeStatuses.length)];
         statusTag.classList.remove('hidden');
 
         // イースターエッグのチェック（AIに聞く前にチェック）
@@ -161,6 +169,14 @@ document.addEventListener('DOMContentLoaded', () => {
         generateBtn.style.opacity = '1';
         generateBtn.style.cursor = 'pointer';
         
+        // 10秒後にヒントを表示
+        hintTimer = setTimeout(() => {
+            statusTag.classList.add('hidden');
+            void statusTag.offsetWidth;
+            statusTag.textContent = hintStatuses[Math.floor(Math.random() * hintStatuses.length)];
+            statusTag.classList.remove('hidden');
+        }, 3000);
+
         // ポップアニメーション
         setTimeout(() => {
             speechBubble.classList.remove('pop-anim');
