@@ -1,7 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const inputEl = document.getElementById('wordInput');
     const generateBtn = document.getElementById('generateBtn');
-    const resultSection = document.getElementById('resultSection');
+    const chatArea = document.getElementById('alimaChatArea');
+    const speechBubble = document.getElementById('speechBubble');
+    const thinkingDots = document.getElementById('thinkingDots');
+    const actionButtons = document.getElementById('actionButtons');
+    const alimaAvatar = document.getElementById('alimaAvatar');
     const resultWordEl = document.getElementById('resultWord');
     const tweetBtn = document.getElementById('tweetBtn');
     const copyBtn = document.getElementById('copyBtn');
@@ -13,30 +17,22 @@ document.addEventListener('DOMContentLoaded', () => {
         "ファントムウェポン": "ンポン"
     };
 
-    // ==========================================================
-    // Cloudflare WorkerのURLを設定してください
-    // 例: https://alima-word-generator-api.your-account.workers.dev
-    // ==========================================================
     const API_URL = "https://alima-word-generator-api.h4npen.workers.dev"; 
-    // ※デプロイするまでは、このURLを空文字などにしておくと通信できません
 
     async function generateAlimaWordAI(input) {
         const cleanInput = input.replace(/[\s　]+/g, '');
         if (!cleanInput) return "";
 
-        // 凡例に完全一致する場合は固定の略語を返す
         if (dictionary[cleanInput]) {
             return dictionary[cleanInput];
         }
 
         try {
-            // API URLが未設定のままボタンを押された際のダミー処理（Workerデプロイ後削除してOK）
             if (API_URL === "https://[YOUR_WORKER_URL]" || !API_URL) {
-                console.warn("API_URLが設定されていません。WorkerをデプロイしURLをapp.jsに記載してください。");
+                console.warn("API_URLが設定されていません。");
                 return "（未設定）"; 
             }
 
-            // Cloudflare WorkerのAPIへリクエスト
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
@@ -56,11 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('AIの生成に失敗:', error);
-            // エラー文に429やQuotaが含まれていた場合（制限超過）
             if (error.message && (error.message.includes('429') || error.message.includes('Quota'))) {
                 return "考えすぎて疲れてねむねむにゃんこだにゃん。\n今は頭がいっぱいになっちゃったから、1分くらい待っててほしいにゃん！";
             }
-            // その他のエラー
             return "考えすぎて疲れてねむねむにゃんこだにゃん。\nもうちょっとしてから依頼してくれにゃん。";
         }
     }
@@ -69,33 +63,56 @@ document.addEventListener('DOMContentLoaded', () => {
         const text = inputEl.value;
         if (!text.trim()) return;
 
-        // UIをローディング状態にする
-        resultSection.classList.add('hidden');
+        // UIを初期化・ローディング状態にする
         generateBtn.disabled = true;
         generateBtn.style.opacity = '0.5';
         generateBtn.style.cursor = 'not-allowed';
-        document.getElementById('avatarSection').classList.remove('hidden');
+
+        // 吹き出しとアバターの状態を「考え中」にする
+        chatArea.classList.remove('hidden');
+        actionButtons.classList.add('hidden');
+        resultWordEl.classList.add('hidden');
+        thinkingDots.classList.remove('hidden');
+        speechBubble.classList.remove('is-error');
+        
+        alimaAvatar.classList.remove('is-speaking');
+        alimaAvatar.classList.add('is-thinking');
 
         // AIからの返答を待つ
         let generatedWord = await generateAlimaWordAI(text);
         
-        // ユーザー体験のため、ローディングアニメーションを最低でも1秒ほど確保する
-        await new Promise(resolve => setTimeout(resolve, 1000));
-            
+        // ユーザー体験のため、最低でも1秒ほど確保する
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        // 状態判定（にゃんこメッセージが含まれる場合はエラー表示）
+        const isNyankoError = generatedWord.includes('ねむねむにゃんこ');
+
+        // 結果を表示
+        thinkingDots.classList.add('hidden');
         resultWordEl.textContent = generatedWord;
+        resultWordEl.classList.remove('hidden');
         
-        // ローディングを解除して結果を表示
-        document.getElementById('avatarSection').classList.add('hidden');
-        resultSection.classList.remove('hidden');
+        // アバターを「喋っている」状態にする
+        alimaAvatar.classList.remove('is-thinking');
+        alimaAvatar.classList.add('is-speaking');
+
+        if (isNyankoError) {
+            speechBubble.classList.add('is-error');
+            actionButtons.classList.add('hidden');
+        } else {
+            speechBubble.classList.remove('is-error');
+            actionButtons.classList.remove('hidden');
+        }
+
         generateBtn.disabled = false;
         generateBtn.style.opacity = '1';
         generateBtn.style.cursor = 'pointer';
         
-        // アニメーションを確実に再発火させるための遅延
+        // ポップアニメーション
         setTimeout(() => {
-            resultWordEl.classList.remove('pop-anim');
-            void resultWordEl.offsetWidth; // 強制リフロー
-            resultWordEl.classList.add('pop-anim');
+            speechBubble.classList.remove('pop-anim');
+            void speechBubble.offsetWidth; 
+            speechBubble.classList.add('pop-anim');
         }, 10);
     }
 

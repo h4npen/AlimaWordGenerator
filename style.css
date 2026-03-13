@@ -130,40 +130,139 @@ header p {
     box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
 }
 
-.result-section {
-    background-color: var(--panel-bg);
-    padding: 40px 20px;
-    text-align: center;
+/* Alima Chat Area */
+.alima-chat-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
     margin-bottom: 40px;
-    border: 3px solid var(--border-color);
-    box-shadow: 8px 8px 0 var(--accent-blue);
-    transform: rotate(1deg);
 }
 
-.result-section.hidden {
+.alima-chat-area.hidden {
     display: none;
 }
 
-.result-box {
-    margin-bottom: 30px;
+.alima-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.alima-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--border-color);
+    box-shadow: 6px 6px 0 var(--border-color);
+    flex-shrink: 0;
+    transition: transform 0.3s;
+}
+
+/* Animations for Avatar */
+.is-thinking {
+    animation: simple-spin 1.2s linear infinite;
+}
+
+.is-speaking {
+    animation: alima-jump 0.5s ease infinite alternate;
+}
+
+@keyframes simple-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes alima-jump {
+    from { transform: translateY(0); }
+    to { transform: translateY(-15px); }
+}
+
+.speech-bubble {
+    position: relative;
+    background-color: var(--panel-bg);
+    border: 4px solid var(--border-color);
+    padding: 20px 25px;
+    min-width: 100px;
+    min-height: 40px;
+    box-shadow: 8px 8px 0 var(--accent-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/* Bubble Tail */
+.speech-bubble::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 10px 20px 10px 0;
+    border-style: solid;
+    border-color: transparent var(--border-color) transparent transparent;
+}
+
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 8px 16px 8px 0;
+    border-style: solid;
+    border-color: transparent var(--panel-bg) transparent transparent;
 }
 
 #resultWord {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 900;
     color: var(--text-main);
-    text-shadow: 4px 4px 0 var(--accent-yellow);
-    word-break: break-word;
-    display: inline-block;
-    padding: 10px 20px;
-    border: 4px dashed var(--border-color);
-    background-color: white;
+    word-break: break-all;
+    line-height: 1.2;
+}
+
+/* For long error messages like "Nemunemu Nyanko" */
+.is-error #resultWord {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+/* Thinking Dots */
+.thinking-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.thinking-dots span {
+    width: 12px;
+    height: 12px;
+    background-color: var(--border-color);
+    animation: dot-jump 0.6s infinite alternate;
+}
+
+.thinking-dots span:nth-child(2) { animation-delay: 0.1s; }
+.thinking-dots span:nth-child(3) { animation-delay: 0.2s; }
+
+@keyframes dot-jump {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-10px); opacity: 0.5; }
 }
 
 .action-buttons {
     display: flex;
     gap: 20px;
     justify-content: center;
+    width: 100%;
+}
+
+.action-buttons.hidden {
+    display: none;
 }
 
 .share-btn {
@@ -196,73 +295,6 @@ header p {
 .copy-btn {
     background-color: #238636;
     color: white;
-}
-
-/* Avatar Animation section */
-.avatar-section {
-    text-align: center;
-    margin-bottom: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-.avatar-section.hidden {
-    display: none;
-}
-
-.alima-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid var(--border-color);
-    box-shadow: 6px 6px 0 var(--accent-blue);
-    /* 新しい回転アニメーション */
-    animation: simple-spin 1.2s linear infinite;
-    transform-origin: center center;
-}
-
-@keyframes simple-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.thinking-bubbles {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    height: 25px;
-}
-
-.bubble {
-    width: 15px;
-    height: 15px;
-    background-color: var(--text-main);
-    border: 2px solid var(--text-main);
-    border-radius: 0; /* Make them square to match the bold style */
-    animation: game-blink 1s steps(2, start) infinite;
-}
-
-.bubble:nth-child(1) { animation-delay: 0s; }
-.bubble:nth-child(2) { animation-delay: 0.2s; }
-.bubble:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes game-blink {
-    0% { transform: scale(1); background-color: var(--primary-color); }
-    50% { transform: scale(0.5); background-color: var(--panel-bg); }
-    100% { transform: scale(1); background-color: var(--primary-color); }
-}
-
-#thinkingText {
-    color: var(--text-main);
-    font-size: 1.2rem;
-    margin: 5px 0 0 0;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2px;
 }
 
 footer {

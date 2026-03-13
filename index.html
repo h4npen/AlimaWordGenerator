@@ -19,21 +19,17 @@
                 <button id="generateBtn">略す！</button>
             </div>
 
-            <div class="avatar-section hidden" id="avatarSection">
-                <img src="IMG_7911.jpeg" alt="Alima" class="alima-avatar" id="alimaAvatar">
-                <div class="thinking-bubbles">
-                    <span class="bubble"></span>
-                    <span class="bubble"></span>
-                    <span class="bubble"></span>
+            <div class="alima-chat-area hidden" id="alimaChatArea">
+                <div class="alima-container">
+                    <img src="IMG_7911.jpeg" alt="Alima" class="alima-avatar" id="alimaAvatar">
+                    <div class="speech-bubble" id="speechBubble">
+                        <div id="thinkingDots" class="thinking-dots hidden">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span id="resultWord"></span>
+                    </div>
                 </div>
-                <p id="thinkingText">Alimaが考え中...</p>
-            </div>
-
-            <div class="result-section hidden" id="resultSection">
-                <div class="result-box">
-                    <span id="resultWord"></span>
-                </div>
-                <div class="action-buttons">
+                <div class="action-buttons hidden" id="actionButtons">
                     <button id="tweetBtn" class="share-btn x-btn">𝕏でシェア</button>
                     <button id="copyBtn" class="share-btn copy-btn">コピー</button>
                 </div>
