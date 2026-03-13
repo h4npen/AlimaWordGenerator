@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             void statusTag.offsetWidth;
             statusTag.textContent = hintStatuses[Math.floor(Math.random() * hintStatuses.length)];
             statusTag.classList.remove('hidden');
-        }, 5000);
+        }, 8000);
 
         // イースターエッグのチェック（AIに聞く前にチェック）
         let specialResponse = "";
