@@ -147,16 +147,16 @@ header p {
     font-size: 0.85rem;
     font-weight: 900;
     box-shadow: 3px 3px 0 var(--border-color);
-    transform: rotate(-2deg);
-    margin-bottom: 5px;
+    transform: rotate(2deg); /* Slightly different tilt for bottom */
+    margin-top: 10px;
     z-index: 10;
     white-space: nowrap;
-    animation: status-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: status-pop-bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes status-pop {
+@keyframes status-pop-bottom {
     0% { transform: scale(0) rotate(0deg); }
-    100% { transform: scale(1) rotate(-2deg); }
+    100% { transform: scale(1) rotate(2deg); }
 }
 
 .alima-chat-area.hidden {

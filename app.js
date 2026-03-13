@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function doGenerate() {
-        const text = inputEl.value;
-        if (!text.trim()) return;
+        const text = inputEl.value.trim();
+        if (!text) return;
 
         // UIを初期化・ローディング状態にする
         generateBtn.disabled = true;
@@ -105,10 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
         generateBtn.style.cursor = 'not-allowed';
 
         // 吹き出しとアバターの状態を「考え中」にする
-        speechBubble.classList.remove('hidden'); // 吹き出しを表示
+        speechBubble.classList.remove('hidden'); 
         chatArea.classList.remove('hidden');
         actionButtons.classList.add('hidden');
-        resultWordEl.textContent = ''; // 前の結果をクリア
+        resultWordEl.textContent = ''; 
         resultWordEl.classList.add('hidden');
         thinkingDots.classList.remove('hidden');
         speechBubble.classList.remove('is-error');
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statusTag.textContent = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
         statusTag.classList.remove('hidden');
 
-        // イースターエッグのチェック
+        // イースターエッグのチェック（AIに聞く前にチェック）
         let specialResponse = "";
         for (const key in keywordEggs) {
             if (text.includes(key)) {
@@ -129,8 +129,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // AIからの返答を待つ
-        let generatedWord = specialResponse || await generateAlimaWordAI(text);
+        let generatedWord = "";
+        if (specialResponse) {
+            generatedWord = specialResponse;
+        } else {
+            // AIからの返答を待つ
+            generatedWord = await generateAlimaWordAI(text);
+        }
         
         // ユーザー体験のため、最低でも1秒ほど確保する
         await new Promise(resolve => setTimeout(resolve, 800));
