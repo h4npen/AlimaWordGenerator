@@ -139,24 +139,34 @@ header p {
     margin-bottom: 40px;
 }
 
+.alima-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative; /* Add for absolute positioning of tag */
+    padding-bottom: 25px; /* Space for the tag below */
+}
+
 .alima-status-tag {
+    position: absolute;
+    bottom: 0;
+    left: 50px; /* Center relative to 100px avatar */
+    transform: translateX(-50%) rotate(2deg);
     background-color: var(--accent-yellow);
     color: var(--text-main);
     border: 3px solid var(--border-color);
-    padding: 4px 12px;
-    font-size: 0.85rem;
+    padding: 2px 10px;
+    font-size: 0.75rem;
     font-weight: 900;
-    box-shadow: 3px 3px 0 var(--border-color);
-    transform: rotate(2deg); /* Slightly different tilt for bottom */
-    margin-top: 10px;
+    box-shadow: 2px 2px 0 var(--border-color);
     z-index: 10;
     white-space: nowrap;
     animation: status-pop-bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes status-pop-bottom {
-    0% { transform: scale(0) rotate(0deg); }
-    100% { transform: scale(1) rotate(2deg); }
+    0% { transform: translateX(-50%) scale(0) rotate(0deg); }
+    100% { transform: translateX(-50%) scale(1) rotate(2deg); }
 }
 
 .alima-chat-area.hidden {

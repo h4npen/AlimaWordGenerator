@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "ヤニ休憩中🚬",
         "ドカ食い気絶中🍖",
         "ねむねむにゃんこだにゃん",
-        "エナドリ充填中⚡",
-        "命の前借り中💸"
+        "エナドリ充填中⚡"
     ];
 
     const keywordEggs = {
