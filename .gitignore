@@ -1,0 +1,12 @@
+# 🚫 一般的な不要ファイル
+.DS_Store
+Thumbs.db
+
+# 📦 Node / Wrangler 関連の不要ファイル
+node_modules/
+.wrangler/
+dist/
+
+# 🔐 APIキーの設定など、絶対にGitHubに上げてはいけないファイル
+.env
+*.local

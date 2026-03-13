@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alima語ジェネレーター</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Alima語ジェネレーター</h1>
+            <p>あいつがいかにも言いそうな略語を生成するツール</p>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <input type="text" id="wordInput" placeholder="略したい言葉を入力 (例: セブンイレブン)" autocomplete="off">
+                <button id="generateBtn">略す！</button>
+            </div>
+
+            <div class="avatar-section hidden" id="avatarSection">
+                <img src="IMG_7911.jpeg" alt="Alima" class="alima-avatar" id="alimaAvatar">
+                <div class="thinking-bubbles">
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                    <span class="bubble"></span>
+                </div>
+                <p id="thinkingText">Alimaが考え中...</p>
+            </div>
+
+            <div class="result-section hidden" id="resultSection">
+                <div class="result-box">
+                    <span id="resultWord"></span>
+                </div>
+                <div class="action-buttons">
+                    <button id="tweetBtn" class="share-btn x-btn">𝕏でシェア</button>
+                    <button id="copyBtn" class="share-btn copy-btn">コピー</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Created for Alima's Friends</p>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
