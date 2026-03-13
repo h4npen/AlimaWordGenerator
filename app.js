@@ -52,10 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('AIの生成に失敗:', error);
-            if (error.message && (error.message.includes('429') || error.message.includes('Quota'))) {
-                return "考えすぎて疲れてねむねむにゃんこだにゃん。\n今は頭がいっぱいになっちゃったから、1分くらい待っててほしいにゃん！";
-            }
-            return "考えすぎて疲れてねむねむにゃんこだにゃん。\nもうちょっとしてから依頼してくれにゃん。";
+            
+            // "Please retry in 54.132s" のような文字列を探す
+            const retryMatch = error.message.match(/Please retry in ([0-9.]+\w+)/);
+            const waitTime = retryMatch ? `（あと ${retryMatch[1]} ほど待ってお試しください）` : "（1分ほど待ってお試しください）";
+
+            return `疲れてねむねむにゃんこだにゃん。\n${waitTime}`;
         }
     }
 

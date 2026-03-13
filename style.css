@@ -234,6 +234,10 @@ header p {
 }
 
 /* Thinking Dots */
+.thinking-dots.hidden {
+    display: none;
+}
+
 .thinking-dots {
     display: flex;
     gap: 8px;
