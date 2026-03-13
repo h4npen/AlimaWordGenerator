@@ -12,13 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyBtn = document.getElementById('copyBtn');
 
     const randomStatuses = [
-        "ヤニ休憩中🚬",
-        "ドカ食い気絶中🍖",
         "「ねむい」にゃあ",
         "やっぱり「モンエナ」にゃん",
         "「タバコ」吸いたいにゃん",
         "「やばい」って言うと...？",
-        "「ドカ食い」したいにゃん🍚"
+        "「ドカ食い」したいにゃん🍚",
+        "ヤニ休憩中🚬",
+        "ドカ食い気絶中🍖"
     ];
 
     const keywordEggs = {
@@ -112,6 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
         alimaAvatar.classList.add('is-thinking');
 
         // ステータスタグの表示（ランダム）
+        statusTag.classList.add('hidden'); // 一旦隠してアニメーションをリセット
+        void statusTag.offsetWidth; // 強制リフロー
         statusTag.textContent = randomStatuses[Math.floor(Math.random() * randomStatuses.length)];
         statusTag.classList.remove('hidden');
 
